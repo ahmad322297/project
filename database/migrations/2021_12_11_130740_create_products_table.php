@@ -18,10 +18,10 @@ class CreateProductsTable extends Migration
             $table->timestamps();
             $table->string('name');
             $table->string('exp_date');
-            $table->text('img_url');
+            //$table->text('img_url');
             $table->integer('quantity');
             $table->integer('price');
-            $table->foreignId('category_id')->references('id')->on('categories');
+            //$table->foreignId('category_id')->references('id')->on('categories');
             //$table->foreign('user_id');
         });
     }

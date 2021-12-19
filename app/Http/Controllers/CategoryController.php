@@ -10,24 +10,31 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
-        //
-        dd('index');
+        $CategoryQuery = Category::query();
+        $categories = $CategoryQuery->get();
+        return response()->json([
+            'message' => $categories
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        //
-        dd('store');
+        $name = $request->input('name');
+
+        Category::query()->create([
+            'name' => $name,
+        ]);
+        return response()->json(['message' => 'successfully stored']);
     }
 
     /**
@@ -36,10 +43,14 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Category $category, $id)
     {
-        //
-        dd('show');
+        $CategoryQuery = Category::query();
+        $CategoryQuery->where('id',$id);
+        $category = $CategoryQuery->get();
+        return response()->josn([
+            'message' => $category,
+        ]);
     }
 
     /**
@@ -47,12 +58,15 @@ class CategoryController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Category $category, $id)
     {
-        //
-        dd('update');
+        $name = $request->input('name');
+        Category::query()->find($id)->update([
+            'name' => $name,
+        ]);
+        return response()->json(['message' => 'successfully updated']);
     }
 
     /**
@@ -61,9 +75,8 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Category $category, $id)
     {
-        //
-        dd('destroy');
+        return response()->json(['message' => 'successfully deleted']);
     }
 }
