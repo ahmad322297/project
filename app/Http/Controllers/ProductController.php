@@ -73,13 +73,18 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product, $id)//only update the changed data
     {
+        $ProductQuery = Product::query()->find($id);
         $name = $request->input('name');
+        if($name != null)
+            $ProductQuery->update([
+                'name' => $name,
+            ]);
         $img_url = $request->input('img_url');
         $quantity = $request->input('quantity');
         $price = $request->input('price');
         $category_id = $request->input('category_id');
 //if($name != null)
-        Product::query()->find($id)->update([
+        ->update([
            'name' => $name,
            'img_url' => $img_url,
            'quantity' => $quantity,
@@ -95,9 +100,16 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Product $product, $id)//not completed
+    public function destroy(Product $product, $id)
     {
+        $ProductQuery = Product::query();
+        $prodcuts = $ProductQuery->get();
+        $size = count($prodcuts);
+        if($id>$size or $size == 0 or $id == 0)
+            return response()->json(['message' => 'id not found']);
 
+        $prodcuts = $ProductQuery->find($id);
+        $prodcuts->delete();
         return response()->json(['message' => 'successfully deleted']);
     }
 }

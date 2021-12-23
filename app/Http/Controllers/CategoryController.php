@@ -79,8 +79,16 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category, $id)//not completed
+    public function destroy(Category $category, $id)
     {
+        $CategoryQuery = Category::query();
+        $categories = $CategoryQuery->get();
+        $size = count($categories);
+        if($id>$size or $size == 0 or $id == 0)
+            return response()->json(['message' => 'id not found']);
+
+        $categories = $CategoryQuery->find($id);
+        $categories->delete();
         return response()->json(['message' => 'successfully deleted']);
     }
 }

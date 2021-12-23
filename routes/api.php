@@ -21,7 +21,7 @@ Route::prefix('product')->group(function(){
     Route::post('/',[ProductController::class,'store']);//store the user id without input
     Route::get('/{id}',[ProductController::class,'show']);
     Route::post('/{id}',[ProductController::class,'update']);//only update the changed data
-    Route::delete('/{id}',[ProductController::class,'destroy']);//not completed
+    Route::delete('/{id}',[ProductController::class,'destroy']);
 });
 
 Route::prefix('category')->group(function(){
@@ -29,5 +29,5 @@ Route::prefix('category')->group(function(){
    Route::post('/',[CategoryController::class,'store']);//store the user id without input
    Route::get('/{id}',[CategoryController::class,'show']);
    Route::post('/{id}',[CategoryController::class,'update']);
-   Route::delete('/{id}',[CategoryController::class,'destroy']);//not completed
+   Route::delete('/{id}',[CategoryController::class,'destroy']);
 });
