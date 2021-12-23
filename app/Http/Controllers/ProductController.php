@@ -43,7 +43,7 @@ class ProductController extends Controller
             'quantity' => $quantity,
             'price' => $price,
             'category_id' => $category_id,
-            'user_id' => $user_id,
+            //'user_id' => $user_id,
         ]);
         return response()->json(['message' => 'successfully stored']);
     }
@@ -73,18 +73,13 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product, $id)//only update the changed data
     {
-        $ProductQuery = Product::query()->find($id);
         $name = $request->input('name');
-        if($name != null)
-            $ProductQuery->update([
-                'name' => $name,
-            ]);
         $img_url = $request->input('img_url');
         $quantity = $request->input('quantity');
         $price = $request->input('price');
         $category_id = $request->input('category_id');
 //if($name != null)
-        ->update([
+        Product::query()->find($id)->update([
            'name' => $name,
            'img_url' => $img_url,
            'quantity' => $quantity,
