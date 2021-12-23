@@ -27,7 +27,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request)//store the user id without input
     {
         $name = $request->input('name');
         $exp_date = $request->input('exp_date');
@@ -39,11 +39,11 @@ class ProductController extends Controller
         Product::query()->create([
             'name' => $name,
             'exp_date' => $exp_date,
-            //'img_url' => $img_url,
+            'img_url' => $img_url,
             'quantity' => $quantity,
             'price' => $price,
-            //'category_id' => $category_id,
-            //'user_id' => $user_id,
+            'category_id' => $category_id,
+            'user_id' => $user_id,
         ]);
         return response()->json(['message' => 'successfully stored']);
     }
@@ -71,14 +71,14 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Product $product, $id)
+    public function update(Request $request, Product $product, $id)//only update the changed data
     {
         $name = $request->input('name');
         $img_url = $request->input('img_url');
         $quantity = $request->input('quantity');
         $price = $request->input('price');
         $category_id = $request->input('category_id');
-
+//if($name != null)
         Product::query()->find($id)->update([
            'name' => $name,
            'img_url' => $img_url,
@@ -95,7 +95,7 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Product $product, $id)
+    public function destroy(Product $product, $id)//not completed
     {
 
         return response()->json(['message' => 'successfully deleted']);

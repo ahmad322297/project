@@ -63,10 +63,14 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category, $id)
     {
         $name = $request->input('name');
-        Category::query()->find($id)->update([
-            'name' => $name,
-        ]);
-        return response()->json(['message' => 'successfully updated']);
+        if($name != null)
+        {
+            Category::query()->find($id)->update([
+                'name' => $name,
+            ]);
+            return response()->json(['message' => 'successfully updated']);
+        }
+        return response()->json(['message' => 'it should not be empty']);
     }
 
     /**
@@ -75,7 +79,7 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category, $id)
+    public function destroy(Category $category, $id)//not completed
     {
         return response()->json(['message' => 'successfully deleted']);
     }

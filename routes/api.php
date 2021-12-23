@@ -18,16 +18,16 @@ ph*/
 
 Route::prefix('product')->group(function(){
     Route::get('/',[ProductController::class,'index']);
-    Route::post('/',[ProductController::class,'store']);
+    Route::post('/',[ProductController::class,'store']);//store the user id without input
     Route::get('/{id}',[ProductController::class,'show']);
-    Route::post('/{id}',[ProductController::class,'update']);
-    Route::delete('/{id}',[ProductController::class,'destroy']);
+    Route::post('/{id}',[ProductController::class,'update']);//only update the changed data
+    Route::delete('/{id}',[ProductController::class,'destroy']);//not completed
 });
 
 Route::prefix('category')->group(function(){
    Route::get('/',[CategoryController::class,'index']);
-   Route::post('/',[CategoryController::class,'store']);
+   Route::post('/',[CategoryController::class,'store']);//store the user id without input
    Route::get('/{id}',[CategoryController::class,'show']);
    Route::post('/{id}',[CategoryController::class,'update']);
-   Route::delete('/{id}',[CategoryController::class,'destroy']);
+   Route::delete('/{id}',[CategoryController::class,'destroy']);//not completed
 });
