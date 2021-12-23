@@ -48,7 +48,7 @@ class ProductController extends Controller
         return response()->json(['message' => 'successfully stored']);
     }
 
-    /**
+    /*
      * Display the specified resource.
      *
      * @param  \App\Models\Product  $product
@@ -64,7 +64,7 @@ class ProductController extends Controller
         ]);
     }
 
-    /**
+    /*
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
