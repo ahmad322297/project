@@ -15,11 +15,12 @@ class Product extends Model
 
     protected $fillable = [
         'name',
-        'exp_date',
         'img_url',
+        'exp_date',
+        'category_id',
+        //'user_phone_number',
         'quantity',
         'price',
-        'category_id',
         'user_id',
     ];
 }

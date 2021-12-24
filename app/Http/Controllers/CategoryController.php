@@ -46,6 +46,12 @@ class CategoryController extends Controller
     public function show(Category $category, $id)
     {
         $CategoryQuery = Category::query();
+        $category = $CategoryQuery->get();
+        if($id > count($category) or $id == 0)//not sure of this one
+            return response()->json([
+                'message' => 'invalid id',
+            ]);
+
         $CategoryQuery->where('id',$id);
         $category = $CategoryQuery->get();
         return response()->josn([
@@ -62,15 +68,16 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category, $id)
     {
+        $category = Category::query()->get();
         $name = $request->input('name');
-        if($name != null)
+        if($name != null and $id != 0 and $id <= count($category))//not sure of this one
         {
             Category::query()->find($id)->update([
                 'name' => $name,
             ]);
             return response()->json(['message' => 'successfully updated']);
         }
-        return response()->json(['message' => 'it should not be empty']);
+        return response()->json(['message' => 'it should not be empty or invalid id']);
     }
 
     /**
@@ -82,13 +89,13 @@ class CategoryController extends Controller
     public function destroy(Category $category, $id)
     {
         $CategoryQuery = Category::query();
-        $categories = $CategoryQuery->get();
-        $size = count($categories);
-        if($id>$size or $size == 0 or $id == 0)
+        $category = $CategoryQuery->get();
+        $size = count($category);
+        if($id>$size or $size == 0 or $id == 0)//not sure of this one
             return response()->json(['message' => 'id not found']);
 
-        $categories = $CategoryQuery->find($id);
-        $categories->delete();
+        $category = $CategoryQuery->find($id);
+        $category->delete();
         return response()->json(['message' => 'successfully deleted']);
     }
 }

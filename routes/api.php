@@ -16,18 +16,18 @@ use Illuminate\Support\Facades\Route;
 |
 ph*/
 
-Route::prefix('product')->group(function(){
-    Route::get('/',[ProductController::class,'index']);
+Route::prefix('products')->group(function(){
+    Route::get('/',[ProductController::class,'index']);//add filters
     Route::post('/',[ProductController::class,'store']);//store the user id without input
     Route::get('/{id}',[ProductController::class,'show']);
-    Route::post('/{id}',[ProductController::class,'update']);//only update the changed data
-    Route::delete('/{id}',[ProductController::class,'destroy']);
+    Route::put('/{id}',[ProductController::class,'update']);//only update the changed data
+    Route::delete('/{id}',[ProductController::class,'destroy']);//only delete if it's user's product
 });
 
-Route::prefix('category')->group(function(){
-   Route::get('/',[CategoryController::class,'index']);
+Route::prefix('categories')->group(function(){
+   Route::get('/',[CategoryController::class,'index']);//add filters
    Route::post('/',[CategoryController::class,'store']);//store the user id without input
    Route::get('/{id}',[CategoryController::class,'show']);
-   Route::post('/{id}',[CategoryController::class,'update']);
-   Route::delete('/{id}',[CategoryController::class,'destroy']);
+   Route::put('/{id}',[CategoryController::class,'update']);//only update the changed data
+   Route::delete('/{id}',[CategoryController::class,'destroy']);//only delete if it's user's product
 });

@@ -27,22 +27,22 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)//store the user id without input
+    public function store(Request $request)
     {
         $name = $request->input('name');
-        $exp_date = $request->input('exp_date');
         $img_url = $request->input('img_url');
+        $exp_date = $request->input('exp_date');
+        $category_id = $request->input('category_id');
         $quantity = $request->input('quantity');
         $price = $request->input('price');
-        $category_id = $request->input('category_id');
 
         Product::query()->create([
             'name' => $name,
-            'exp_date' => $exp_date,
             'img_url' => $img_url,
+            'exp_date' => $exp_date,
+            'category_id' => $category_id,
             'quantity' => $quantity,
             'price' => $price,
-            'category_id' => $category_id,
             //'user_id' => $user_id,
         ]);
         return response()->json(['message' => 'successfully stored']);
@@ -56,7 +56,7 @@ class ProductController extends Controller
      */
     public function show(Product $product, $id)
     {
-        $ProductQuery = Product::query();
+        $ProductQuery = Product::query();//add $id > count
         $ProductQuery->where('id',$id);
         $product = $ProductQuery->get();
         return response()->json([
@@ -71,20 +71,22 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Product $product, $id)//only update the changed data
+    public function update(Request $request, Product $product, $id)
     {
         $name = $request->input('name');
         $img_url = $request->input('img_url');
+        $category_id = $request->input('category_id');
         $quantity = $request->input('quantity');
         $price = $request->input('price');
-        $category_id = $request->input('category_id');
-//if($name != null)
+
+        //if($name != null)
+
         Product::query()->find($id)->update([
            'name' => $name,
            'img_url' => $img_url,
+           'category_id' => $category_id,
            'quantity' => $quantity,
            'price' => $price,
-           'category_id' => $category_id,
         ]);
         return response()->json(['message' => 'successfully updated']);
     }
@@ -100,7 +102,7 @@ class ProductController extends Controller
         $ProductQuery = Product::query();
         $prodcuts = $ProductQuery->get();
         $size = count($prodcuts);
-        if($id>$size or $size == 0 or $id == 0)
+        if($id>$size or $size == 0 or $id == 0)//not sure of this one
             return response()->json(['message' => 'id not found']);
 
         $prodcuts = $ProductQuery->find($id);
