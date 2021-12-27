@@ -9,6 +9,7 @@ class Product extends Model
 {
     use HasFactory;
 
+    public $with = ['category','user'];
     protected $table = 'products';
     protected $primaryKey = 'id';
     public $timestamps = true;
@@ -18,9 +19,16 @@ class Product extends Model
         'img_url',
         'exp_date',
         'category_id',
-        //'user_phone_number',
         'quantity',
         'price',
         'user_id',
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function category(){
+        return $this->belongsTo(Category::class, 'category_id');
+    }
 }

@@ -43,7 +43,7 @@ class ProductController extends Controller
             'category_id' => $category_id,
             'quantity' => $quantity,
             'price' => $price,
-            //'user_id' => $user_id,
+            'user_id' => Auth()->user()->id,
         ]);
         return response()->json(['message' => 'successfully stored']);
     }
@@ -56,7 +56,7 @@ class ProductController extends Controller
      */
     public function show(Product $product, $id)
     {
-        $ProductQuery = Product::query();//add $id > count
+        $ProductQuery = Product::query();
         $ProductQuery->where('id',$id);
         $product = $ProductQuery->get();
         return response()->json([

@@ -17,20 +17,20 @@ use Illuminate\Support\Facades\Route;
 |
 ph*/
 
-Route::prefix('products')->group(function(){
-    Route::get('/',[ProductController::class,'index']);//add filters
-    Route::post('/',[ProductController::class,'store'])->middleware(['auth:api']);//store the user id without input
+Route::prefix('products')->middleware(['auth:api'])->group(function(){
+    Route::get('/',[ProductController::class,'index']);//add filters, only show name and image
+    Route::post('/',[ProductController::class,'store']);//store the user id without input
     Route::get('/{id}',[ProductController::class,'show']);
-    Route::put('/{id}',[ProductController::class,'update'])->middleware(['auth:api']);//only update the changed data
-    Route::delete('/{id}',[ProductController::class,'destroy'])->middleware(['auth:api']);//only delete if it's user's product
+    Route::put('/{id}',[ProductController::class,'update']);//only update the changed data
+    Route::delete('/{id}',[ProductController::class,'destroy']);//only delete if it's user's product
 });
 
-Route::prefix('categories')->group(function(){
+Route::prefix('categories')->middleware(['auth:api'])->group(function(){
    Route::get('/',[CategoryController::class,'index']);//add filters
-   Route::post('/',[CategoryController::class,'store'])->middleware(['auth:api']);//store the user id without input
+   Route::post('/',[CategoryController::class,'store']);//store the user id without input
    Route::get('/{id}',[CategoryController::class,'show']);
-   Route::put('/{id}',[CategoryController::class,'update'])->middleware(['auth:api']);//only update the changed data
-   Route::delete('/{id}',[CategoryController::class,'destroy'])->middleware(['auth:api']);//only delete if it's user's product
+   Route::put('/{id}',[CategoryController::class,'update']);//only update the changed data
+   Route::delete('/{id}',[CategoryController::class,'destroy']);//only delete if it's user's category
 });
 
 Route::prefix('auth')->group(function(){
