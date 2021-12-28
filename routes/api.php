@@ -18,18 +18,18 @@ use Illuminate\Support\Facades\Route;
 ph*/
 
 Route::prefix('products')->middleware(['auth:api'])->group(function(){
-    Route::get('/',[ProductController::class,'index']);//add filters, only show name and image
-    Route::post('/',[ProductController::class,'store']);//store the user id without input
+    Route::get('/',[ProductController::class,'index']);
+    Route::post('/',[ProductController::class,'store']);
     Route::get('/{id}',[ProductController::class,'show']);
     Route::put('/{id}',[ProductController::class,'update']);//only update the changed data
-    Route::delete('/{id}',[ProductController::class,'destroy']);//only delete if it's user's product
+    Route::delete('/{id}',[ProductController::class,'destroy']);
 });
 
 Route::prefix('categories')->middleware(['auth:api'])->group(function(){
-   Route::get('/',[CategoryController::class,'index']);//add filters
-   Route::post('/',[CategoryController::class,'store']);//store the user id without input
+   Route::get('/',[CategoryController::class,'index']);
+   Route::post('/',[CategoryController::class,'store']);
    Route::get('/{id}',[CategoryController::class,'show']);
-   Route::put('/{id}',[CategoryController::class,'update']);//only update the changed data
+   Route::put('/{id}',[CategoryController::class,'update']);
    Route::delete('/{id}',[CategoryController::class,'destroy']);//only delete if it's user's category
 });
 

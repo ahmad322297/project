@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->text('img_url');
             $table->date('exp_date');
-            $table->foreignId('category_id')->references('id')->on('categories');
+            $table->foreignId('category_id')->references('id')->on('categories')->cascadeOnDelete();;
             $table->integer('quantity');
             $table->integer('price');
             $table->foreignId('user_id')->references('id')->on('users');

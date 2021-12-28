@@ -34,6 +34,7 @@ class CategoryController extends Controller
         Category::query()->create([
             'name' => $name,
         ]);
+
         return response()->json(['message' => 'successfully stored']);
     }
 
@@ -46,16 +47,9 @@ class CategoryController extends Controller
     public function show(Category $category, $id)
     {
         $CategoryQuery = Category::query();
-        $category = $CategoryQuery->get();
-        if($id > count($category) or $id == 0)//not sure of this one
-            return response()->json([
-                'message' => 'invalid id',
-            ]);
-
-        $CategoryQuery->where('id',$id);
-        $category = $CategoryQuery->get();
-        return response()->josn([
-            'message' => $category,
+        $category = $CategoryQuery->find($id);
+        return response()->json([
+            'message' => $category
         ]);
     }
 
@@ -68,16 +62,14 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category, $id)
     {
-        $category = Category::query()->get();
         $name = $request->input('name');
-        if($name != null and $id != 0 and $id <= count($category))//not sure of this one
-        {
-            Category::query()->find($id)->update([
-                'name' => $name,
-            ]);
-            return response()->json(['message' => 'successfully updated']);
-        }
-        return response()->json(['message' => 'it should not be empty or invalid id']);
+        if($name == null)
+            return response()->json(['message' => 'name should not be empty']);
+
+        Category::query()->find($id)->update([
+            'name' => $name,
+        ]);
+        return response()->json(['message' => 'successfully updated']);
     }
 
     /**
@@ -89,11 +81,6 @@ class CategoryController extends Controller
     public function destroy(Category $category, $id)
     {
         $CategoryQuery = Category::query();
-        $category = $CategoryQuery->get();
-        $size = count($category);
-        if($id>$size or $size == 0 or $id == 0)//not sure of this one
-            return response()->json(['message' => 'id not found']);
-
         $category = $CategoryQuery->find($id);
         $category->delete();
         return response()->json(['message' => 'successfully deleted']);

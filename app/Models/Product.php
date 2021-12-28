@@ -9,7 +9,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    public $with = ['category','user'];
+    public $with = ['category','user','discounts'];
     protected $table = 'products';
     protected $primaryKey = 'id';
     public $timestamps = true;
@@ -30,5 +30,9 @@ class Product extends Model
 
     public function category(){
         return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    public function discounts(){
+        return $this->hasMany(Discount::class, 'product_id')->orderBy('date');
     }
 }
