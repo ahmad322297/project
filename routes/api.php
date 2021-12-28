@@ -21,7 +21,7 @@ Route::prefix('products')->middleware(['auth:api'])->group(function(){
     Route::get('/',[ProductController::class,'index']);
     Route::post('/',[ProductController::class,'store']);
     Route::get('/{id}',[ProductController::class,'show']);
-    Route::put('/{id}',[ProductController::class,'update']);//only update the changed data
+    Route::put('/{id}',[ProductController::class,'update']);
     Route::delete('/{id}',[ProductController::class,'destroy']);
 });
 
@@ -30,7 +30,7 @@ Route::prefix('categories')->middleware(['auth:api'])->group(function(){
    Route::post('/',[CategoryController::class,'store']);
    Route::get('/{id}',[CategoryController::class,'show']);
    Route::put('/{id}',[CategoryController::class,'update']);
-   Route::delete('/{id}',[CategoryController::class,'destroy']);//only delete if it's user's category
+   Route::delete('/{id}',[CategoryController::class,'destroy']);
 });
 
 Route::prefix('auth')->group(function(){
