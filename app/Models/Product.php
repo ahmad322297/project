@@ -9,7 +9,8 @@ class Product extends Model
 {
     use HasFactory;
 
-    public $with = ['category','user','discounts'];
+    public $with = ['category','user','discounts','comments','likes'];
+    public $withCount = ['comments','likes'];
     protected $table = 'products';
     protected $primaryKey = 'id';
     public $timestamps = true;
@@ -22,6 +23,7 @@ class Product extends Model
         'quantity',
         'price',
         'user_id',
+        'views',
     ];
 
     public function user(){
@@ -34,5 +36,13 @@ class Product extends Model
 
     public function discounts(){
         return $this->hasMany(Discount::class, 'product_id')->orderBy('date');
+    }
+
+    public function comments(){
+        return $this->hasMany(Comment::class, 'product_id')->orderBy('created_at');
+    }
+
+    public function likes(){
+        return $this->hasMany(Like::class, 'product_id')->orderBy('updated_at');
     }
 }

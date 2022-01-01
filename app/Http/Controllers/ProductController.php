@@ -80,6 +80,7 @@ class ProductController extends Controller
     {
         $ProductQuery = Product::query();
         $product = $ProductQuery->find($id);
+        $product->increment('views');
 
         $discounts = $product->discounts()->get();
         $maxDiscount = null;

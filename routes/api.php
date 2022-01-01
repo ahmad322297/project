@@ -2,8 +2,9 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\ProductController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +24,18 @@ Route::prefix('products')->middleware(['auth:api'])->group(function(){
     Route::get('/{id}',[ProductController::class,'show']);
     Route::put('/{id}',[ProductController::class,'update']);
     Route::delete('/{id}',[ProductController::class,'destroy']);
+
+    Route::prefix('{product}/comments')->group(function(){
+        Route::get('/',[CommentController::class,'index']);
+        Route::post('/',[CommentController::class,'store']);
+        Route::put('/{comment_id}',[CommentController::class,'update']);
+        Route::delete('/{comment_id}',[CommentController::class,'destroy']);
+    });
+
+    Route::prefix('{product}/likes')->group(function(){
+        Route::get('/',[LikeController::class,'index']);
+        Route::post('/',[LikeController::class,'store']);
+    });
 });
 
 Route::prefix('categories')->middleware(['auth:api'])->group(function(){
