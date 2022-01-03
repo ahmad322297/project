@@ -20,6 +20,7 @@ class ProductController extends Controller
         $name = $request->query('name');
         $category_id = $request->query('category_id');
         $exp_date = $request->query('exp_date');
+        $sort = $request->query('sort');
 
         if($name != null)
             $ProductQuery->where('name', 'like', '%'.$name.'%');
@@ -27,8 +28,18 @@ class ProductController extends Controller
             $ProductQuery->where('category_id', $category_id);
         else if($exp_date != null)
             $ProductQuery->where('exp_date', $exp_date);
-
         $products = $ProductQuery->get();
+
+        if($sort != null)
+        {
+            if($sort == 'views')
+                $products = $products->sortBy('views');
+            else if($sort == 'likes')
+                $products = $products->sortBy('likes_count');
+            else if($sort == 'comments')
+                $products = $products->sortBy('comments_count');
+        }
+
         return response()->json([
             'message' => $products
         ]);
