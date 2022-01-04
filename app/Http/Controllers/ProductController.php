@@ -24,9 +24,9 @@ class ProductController extends Controller
 
         if($name != null)
             $ProductQuery->where('name', 'like', '%'.$name.'%');
-        else if($category_id != null)
+        if($category_id != null)
             $ProductQuery->where('category_id', $category_id);
-        else if($exp_date != null)
+        if($exp_date != null)
             $ProductQuery->where('exp_date', $exp_date);
         $products = $ProductQuery->get();
 
@@ -103,6 +103,8 @@ class ProductController extends Controller
             $discount_value = ($product->price * $maxDiscount['discount_percentage'])/100;
             $product['current_price'] = $product->price - $discount_value;
         }
+        else
+            $product['current_price'] = $product->price;
 
         return response()->json([
             'message' => $product
